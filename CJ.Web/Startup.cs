@@ -36,7 +36,7 @@ namespace CJ.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
                 services.AddMvc(o => o.Filters.Add<GlobalExceptionFilter>()).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-                services.AddDbContext<FirstTestDBContext>();
+                //services.AddDbContext<FirstTestDBContext>();
                 //test 自带di容器
                 services.AddScoped<ITestAppService, TestAppService>();
                 ////注入泛型仓储
