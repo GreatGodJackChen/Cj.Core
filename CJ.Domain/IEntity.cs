@@ -13,5 +13,7 @@ namespace CJ.Domain
         /// Unique identifier for this entity.
         /// </summary>
         TPrimaryKey Id { get; set; }
+
+        bool IsTransient();
     }
 }

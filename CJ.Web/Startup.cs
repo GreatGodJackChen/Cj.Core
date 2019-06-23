@@ -6,6 +6,7 @@ using CJ.Application.Test;
 using CJ.Core.Exception;
 using CJ.Data.FirstModels;
 using CJ.Domain;
+using CJ.Domain.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,11 +39,11 @@ namespace CJ.Web
                 services.AddDbContext<FirstTestDBContext>();
                 //test 自带di容器
                 services.AddScoped<ITestAppService, TestAppService>();
-                //注册uow
-                services.AddUnitOfWork<FirstTestDBContext>();
                 ////注入泛型仓储
-                //services.AddTransient(typeof(IRepository<>), typeof(EfCoreRepository<,>));
-                //services.AddTransient(typeof(IRepository<,>), typeof(EfCoreRepository<,,>));
+                //services.AddScoped<IConnectionStringResolver, MyConnectionStringResolver>();
+                 services.AddTransient(typeof(IFxTest<>),typeof(FxTest<,>));
+                //services.AddTransient(typeof(IRepository<>), typeof(EfCoreRepositoryBase<,>));
+                //services.AddTransient(typeof(IRepository<,>), typeof(EfCoreRepositoryBase<,,>));
                 //autofac 容器
                 return services.RegisterAutofac(Configuration);
         }

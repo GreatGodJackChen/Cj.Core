@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CJ.Core.Reflection
 {
-    internal static class ReflectionHelper
+    public static class ReflectionHelper
     {
         /// <summary>
         /// Checks whether <paramref name="givenType"/> implements/inherits <paramref name="genericType"/>.

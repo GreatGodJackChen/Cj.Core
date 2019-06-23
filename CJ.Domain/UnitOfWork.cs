@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace CJ.Domain
@@ -29,6 +30,9 @@ namespace CJ.Domain
             var dbContextKey = concreteDbContextType.FullName + "#" + connectionString;
             // 创建 DbContext
             DbContext dbContext;
+            //反射出app对象
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            dbContext=(TDbContext)assembly.CreateInstance(concreteDbContextType.FullName);
             //dbContext = _transactionStrategy.CreateDbContext<TDbContext>(connectionString, _dbContextResolver);
             if (!ActiveDbContexts.TryGetValue(dbContextKey, out dbContext))
             {

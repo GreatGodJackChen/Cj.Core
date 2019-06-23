@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CJ.Core.Infrastructure;
+using CJ.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CJ.Web
 {
@@ -26,9 +29,12 @@ namespace CJ.Web
         private static void Register(ContainerBuilder containerBuilder)
         {
             containerBuilder.RegisterType<TestAutofacAppService>().As<ITestAutofacAppService>().InstancePerLifetimeScope();
-            containerBuilder.RegisterGeneric(typeof(EfCoreRepository<,>)).As(typeof(IRepository<>)).InstancePerDependency();
-            containerBuilder.RegisterGeneric(typeof(EfCoreRepository<,,>)).As(typeof(IRepository<,>)).InstancePerDependency();
+            containerBuilder.RegisterGeneric(typeof(EfCoreRepositoryBase<,>)).As(typeof(IRepository<>)).InstancePerDependency();
+            containerBuilder.RegisterGeneric(typeof(EfCoreRepositoryBase<,,>)).As(typeof(IRepository<,>)).InstancePerDependency();
+            containerBuilder.RegisterGeneric(typeof(FxTest<,>)).As(typeof(IFxTest<>));
 
+            var typeFinder = new TypeFinder();
+            var dbRegistrars = typeFinder.FindClassesOfType<DbContext>();
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CJ.Core.Reflection;
 
 namespace CJ.Domain.Repositories
 {
@@ -17,6 +18,7 @@ namespace CJ.Domain.Repositories
     where TDbContext : DbContext
     {
 
+        private readonly IDbContextProvider<TDbContext> _dbContextProvider;
         /// <summary>
         /// Constructor
         /// </summary>
@@ -57,22 +59,21 @@ namespace CJ.Domain.Repositories
             return Table.AsQueryable();
         }
 
-        public virtual DbConnection Connection
-        {
-            get
-            {
-                var connection = Context.Database.GetDbConnection();
+        //public virtual DbConnection Connection
+        //{
+        //    get
+        //    {
 
-                if (connection.State != ConnectionState.Open)
-                {
-                    connection.Open();
-                }
+        //        var connection = Context.Database.GetDbConnection();
 
-                return connection;
-            }
-        }
+        //        if (connection.State != ConnectionState.Open)
+        //        {
+        //            connection.Open();
+        //        }
 
-        private readonly IDbContextProvider<TDbContext> _dbContextProvider;
+        //        return connection;
+        //    }
+        //}
 
         public override IQueryable<TEntity> GetAll()
         {
@@ -83,7 +84,7 @@ namespace CJ.Domain.Repositories
         {
             var query = GetQueryable();
 
-            if (!propertySelectors.IsNullOrEmpty())
+            if (!propertySelectors.Any())
             {
                 foreach (var propertySelector in propertySelectors)
                 {

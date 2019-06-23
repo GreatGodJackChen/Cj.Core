@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using CJ.Web.Models;
 using CJ.Application.Test;
 using System.Reflection;
+using Autofac.Core;
+using CJ.Data.FirstModels;
 
 namespace CJ.Web.Controllers
 {
@@ -23,7 +25,6 @@ namespace CJ.Web.Controllers
         }
         public IActionResult Index()
         {
-            var t= _testAppService.Test();
             var tAutofac = _testAutofacAppService.TestAutofac();
             return View();
         }
