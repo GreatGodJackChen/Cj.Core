@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace CJ.Domain
+namespace Cj.Entities.BaseEntity
 {
     public class Entity : Entity<string>, IEntity
     {

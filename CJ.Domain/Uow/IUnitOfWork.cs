@@ -8,5 +8,6 @@ namespace CJ.Domain
     public interface IUnitOfWork
     {
         int SaveChanges();
+        TDbContext GetOrCreateDbContext<TDbContext>() where TDbContext : DbContext;
     }
 }

@@ -8,16 +8,16 @@ namespace CJ.Domain
     public class DbContextProvider<TDbContext> : IDbContextProvider<TDbContext> where TDbContext : DbContext
     {
 
-        public TDbContext DbContext { get; }
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DbContextProvider(TDbContext dbContext)
+        public DbContextProvider(IUnitOfWork unitOfWork)
         {
-            DbContext = dbContext;
+            _unitOfWork = unitOfWork;
         }
 
         public TDbContext GetDbContext()
         {
-            return DbContext;
+            return _unitOfWork.GetOrCreateDbContext<TDbContext>();
         }
     }
 }

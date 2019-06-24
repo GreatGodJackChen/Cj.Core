@@ -2,18 +2,16 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CJ.Core.Reflection;
+using Cj.Entities.BaseEntity;
 
 namespace CJ.Domain.Repositories
 {
-    public class EfCoreRepositoryBase<TDbContext, TEntity, TPrimaryKey> :RepositoryBase<TEntity, TPrimaryKey>,IRepositoryWithDbContext
+    public class EfCoreRepositoryBase<TDbContext, TEntity, TPrimaryKey> :RepositoryBase<TEntity, TPrimaryKey>
     where TEntity : class, IEntity<TPrimaryKey>
     where TDbContext : DbContext
     {

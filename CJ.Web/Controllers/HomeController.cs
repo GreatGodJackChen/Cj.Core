@@ -9,6 +9,7 @@ using CJ.Application.Test;
 using System.Reflection;
 using Autofac.Core;
 using CJ.Data.FirstModels;
+using CJ.Application;
 
 namespace CJ.Web.Controllers
 {
@@ -16,16 +17,23 @@ namespace CJ.Web.Controllers
     {
         private ITestAppService _testAppService;
         private ITestAutofacAppService _testAutofacAppService;
-        public HomeController(ITestAppService testAppService, ITestAutofacAppService testAutofacAppService)
+        private IPersonAppService _personAppService;
+        //public HomeController(ITestAppService testAppService, ITestAutofacAppService testAutofacAppService,IPersonAppService personAppService)
+        //{
+        //    _testAppService = testAppService;
+        //    _testAutofacAppService = testAutofacAppService;
+        //    _personAppService = personAppService;
+        //    var ty = typeof(HomeController);
+        //    var ty2 = ty.GetTypeInfo().IsAbstract;
+        //}
+        public HomeController( IPersonAppService personAppService)
         {
-            _testAppService = testAppService;
-            _testAutofacAppService = testAutofacAppService;
-            var ty = typeof(HomeController);
-            var ty2 = ty.GetTypeInfo().IsAbstract;
+            _personAppService = personAppService;
         }
         public IActionResult Index()
         {
-            var tAutofac = _testAutofacAppService.TestAutofac();
+            var testPerson = _personAppService.GetPersons();
+           //var tAutofac = _testAutofacAppService.TestAutofac();
             return View();
         }
 

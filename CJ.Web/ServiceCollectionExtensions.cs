@@ -11,6 +11,11 @@ using System.Threading.Tasks;
 using CJ.Core.Infrastructure;
 using CJ.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using CJ.Data.FirstModels;
+using System.Reflection;
+using CJ.Core.Reflection;
+using Cj.Entities.BaseEntity;
+using CJ.Application;
 
 namespace CJ.Web
 {
@@ -29,25 +34,6 @@ namespace CJ.Web
         private static void Register(ContainerBuilder containerBuilder, IServiceCollection services)
         {
             containerBuilder.RegisterType<TestAutofacAppService>().As<ITestAutofacAppService>().InstancePerLifetimeScope();
-            containerBuilder.RegisterGeneric(typeof(EfCoreRepositoryBase<,>)).As(typeof(IRepository<>)).InstancePerDependency();
-            containerBuilder.RegisterGeneric(typeof(EfCoreRepositoryBase<,,>)).As(typeof(IRepository<,>)).InstancePerDependency();
-            //containerBuilder.RegisterGeneric(typeof(FxTest<,>)).As(typeof(IFxTest<>));
-
-            var typeFinder = new TypeFinder();
-            var dbRegistrars = typeFinder.FindClassesOfType<DbContext>();
-            if (dbRegistrars.Any())
-            {
-                using (var scope=containerBuilder.Build().BeginLifetimeScope())
-                {
-                    foreach (var dbRegistrar in dbRegistrars)
-                    {
-                        //注入自定义dbcontext仓储
-                        containerBuilder.RegisterType(dbRegistrar).As(IDbContext)
-                        containerBuilder.RegisterGeneric(dbRegistrar).Named<>(Guid.NewGuid().ToString("N")).InstancePerLifetimeScope();
-                    }
-                   
-                }
-            }
-        }
+        }       
     }
 }

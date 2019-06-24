@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Cj.Entities.BaseEntity;
 
 namespace CJ.Domain.Repositories
 {

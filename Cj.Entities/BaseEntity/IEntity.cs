@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CJ.Domain
+namespace Cj.Entities.BaseEntity
 {
     public interface IEntity:IEntity<string>
     {

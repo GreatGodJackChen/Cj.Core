@@ -1,6 +1,4 @@
-﻿using CJ.Domain;
-using System;
-using System.Collections.Generic;
+﻿using Cj.Entities.BaseEntity;
 
 namespace CJ.Data.FirstModels
 {
