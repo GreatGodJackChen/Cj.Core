@@ -1,22 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
+using System.Collections.Immutable;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
-namespace CJ.Domain
+namespace CJ.Domain.Uow
 {
     /// <summary>
     /// 工作单元
     /// </summary>
-    public class UnitOfWork: IUnitOfWork
+    public class UnitOfWork: UnitOfWorkBase
     {
         private IConnectionStringResolver _connectionStringResolver;
         private readonly IServiceProvider _serviceProvider;
+
+        private IUnitOfWorkDefaultOptions _defaultOptions;
         //存放处于激活状态的DbContext
         protected IDictionary<string, DbContext> ActiveDbContexts { get; }
 
-        public UnitOfWork(IConnectionStringResolver connectionStringResolver, IServiceProvider serviceProvider)
+        public UnitOfWork(IConnectionStringResolver connectionStringResolver, IUnitOfWorkDefaultOptions defaultOptions, IServiceProvider serviceProvider):base(connectionStringResolver, defaultOptions)
         {
             _connectionStringResolver = connectionStringResolver;
             _serviceProvider = serviceProvider;
@@ -62,9 +64,55 @@ namespace CJ.Domain
         {
             return _connectionStringResolver.GetNameOrConnectionString(args);
         }
-        public int SaveChanges()
+        public IReadOnlyList<DbContext> GetAllActiveDbContexts()
         {
-            return 1;
+            return ActiveDbContexts.Values.ToImmutableList();
+        }
+        public override void SaveChanges()
+        {
+            foreach (var dbContext in GetAllActiveDbContexts())
+            {
+                SaveChangesInDbContext(dbContext);
+            }
+        }
+        protected virtual void SaveChangesInDbContext(DbContext dbContext)
+        {
+            dbContext.SaveChanges();
+        }
+
+        public override async Task SaveChangesAsync()
+        {
+            foreach (var dbContext in GetAllActiveDbContexts())
+            {
+                await SaveChangesInDbContextAsync(dbContext);
+            }
+        }
+        protected virtual async Task SaveChangesInDbContextAsync(DbContext dbContext)
+        {
+            await dbContext.SaveChangesAsync();
+        }
+
+        protected override void CompleteUow()
+        {
+            SaveChanges();
+            CommitTransaction();
+        }
+
+        protected override async Task CompleteUowAsync()
+        {
+            await SaveChangesAsync();
+            CommitTransaction();
+        }
+        private void CommitTransaction()
+        {
+            if (Options.IsTransactional == true)
+            {
+                //_transactionStrategy.Commit();
+            }
+        }
+        protected override void DisposeUow()
+        {
+            throw new NotImplementedException();
         }
     }
 }

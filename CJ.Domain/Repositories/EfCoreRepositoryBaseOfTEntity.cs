@@ -1,4 +1,5 @@
 ﻿using Cj.Entities.BaseEntity;
+using CJ.Domain.Uow;
 using Microsoft.EntityFrameworkCore;
 
 namespace CJ.Domain.Repositories

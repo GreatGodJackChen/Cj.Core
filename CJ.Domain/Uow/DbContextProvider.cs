@@ -1,23 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace CJ.Domain
+namespace CJ.Domain.Uow
 {
     public class DbContextProvider<TDbContext> : IDbContextProvider<TDbContext> where TDbContext : DbContext
     {
 
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ICurrentUnitOfWorkProvider _currentUnitOfWorkProvider;
 
-        public DbContextProvider(IUnitOfWork unitOfWork)
+        public DbContextProvider(ICurrentUnitOfWorkProvider currentUnitOfWorkProvider)
         {
-            _unitOfWork = unitOfWork;
+            _currentUnitOfWorkProvider = currentUnitOfWorkProvider;
         }
 
         public TDbContext GetDbContext()
         {
-            return _unitOfWork.GetOrCreateDbContext<TDbContext>();
+            return _currentUnitOfWorkProvider.Current.GetDbContext<TDbContext>();
         }
     }
 }

@@ -12,6 +12,7 @@ using CJ.Core.Reflection;
 using CJ.Data.FirstModels;
 using CJ.Domain;
 using CJ.Domain.Repositories;
+using CJ.Domain.Uow;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -46,7 +47,7 @@ namespace CJ.Web
                  services.AddTransient(typeof(IFxTest<>),typeof(FxTest<,>));
             ////////////////////
             //注入工作单元
-            services.AddSingleton<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             //注册仓储DBcontext
             services.AddTransient(typeof(IDbContextProvider<>), typeof(DbContextProvider<>));
             services.AddTransient<IConnectionStringResolver, MyConnectionStringResolver>();
@@ -87,6 +88,9 @@ namespace CJ.Web
                 }
             }
             services.AddScoped<IPersonAppService, PersonAppService>();
+            services.AddSingleton<IUnitOfWorkDefaultOptions, UnitOfWorkDefaultOptions>();
+            services.AddScoped<ICurrentUnitOfWorkProvider, AsyncLocalCurrentUnitOfWorkProvider>();
+            services.AddScoped<IUnitOfWorkCompleteHandle, InnerUnitOfWorkCompleteHandle>();
             services.BuildServiceProvider();
             ///////////////////////////////////////
             //autofac 容器

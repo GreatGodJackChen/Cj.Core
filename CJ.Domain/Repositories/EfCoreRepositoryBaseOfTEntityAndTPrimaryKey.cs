@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CJ.Core.Reflection;
 using Cj.Entities.BaseEntity;
+using CJ.Domain.Uow;
 
 namespace CJ.Domain.Repositories
 {
