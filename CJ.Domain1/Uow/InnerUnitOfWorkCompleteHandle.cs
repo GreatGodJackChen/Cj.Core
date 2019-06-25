@@ -4,10 +4,9 @@ using System.Threading.Tasks;
 
 namespace CJ.Domain.Uow
 {
-    internal class InnerUnitOfWorkCompleteHandle : IUnitOfWorkCompleteHandle
+    public class InnerUnitOfWorkCompleteHandle: IUnitOfWorkCompleteHandle
     {
-        public const string DidNotCallCompleteMethodExceptionMessage =
-            "Did not call Complete method of a unit of work.";
+        public const string DidNotCallCompleteMethodExceptionMessage = "Did not call Complete method of a unit of work.";
 
         private volatile bool _isCompleteCalled;
         private volatile bool _isDisposed;
@@ -47,7 +46,9 @@ namespace CJ.Domain.Uow
         {
             try
             {
+#pragma warning disable 618
                 return Marshal.GetExceptionCode() != 0;
+#pragma warning restore 618
             }
             catch (Exception)
             {

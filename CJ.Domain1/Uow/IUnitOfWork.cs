@@ -1,6 +1,6 @@
 ﻿namespace CJ.Domain.Uow
 {
-    public interface IUnitOfWork : IActiveUnitOfWork, IUnitOfWorkCompleteHandle
+    public interface IUnitOfWork:IActiveUnitOfWork
     {
         /// <summary>
         /// Unique id of this UOW.

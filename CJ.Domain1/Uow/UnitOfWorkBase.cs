@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CJ.Domain.EntityFrameworkCore;
-using CJ.Domain.Extensions;
-using CJ.Domain.UowManager;
 
 namespace CJ.Domain.Uow
 {
-    public abstract class UnitOfWorkBase:IUnitOfWork
+    public abstract class UnitOfWorkBase : IUnitOfWork
     {
         public string Id { get; }
 
         public IUnitOfWork Outer { get; set; }
 
+        /// <inheritdoc/>
         public event EventHandler Completed;
 
+        /// <inheritdoc/>
         public event EventHandler<UnitOfWorkFailedEventArgs> Failed;
 
+        /// <inheritdoc/>
         public event EventHandler Disposed;
 
+        /// <inheritdoc/>
         public UnitOfWorkOptions Options { get; private set; }
 
         public Dictionary<string, object> Items { get; set; }
@@ -37,6 +38,7 @@ namespace CJ.Domain.Uow
         /// Gets a value indicates that this unit of work is disposed or not.
         /// </summary>
         public bool IsDisposed { get; private set; }
+
 
         /// <summary>
         /// Is <see cref="Begin"/> method called before?
@@ -58,6 +60,8 @@ namespace CJ.Domain.Uow
         /// </summary>
         private Exception _exception;
 
+        private int? _tenantId;
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -70,6 +74,7 @@ namespace CJ.Domain.Uow
 
             Id = Guid.NewGuid().ToString("N");
 
+            //AbpSession = NullAbpSession.Instance;
             Items = new Dictionary<string, object>();
         }
 
@@ -77,7 +82,7 @@ namespace CJ.Domain.Uow
         public void Begin(UnitOfWorkOptions options)
         {
             PreventMultipleBegin();
-            Options = options ?? throw new ArgumentNullException(nameof(options)); //TODO: Do not set options like that, instead make a copy?
+            Options = options; //TODO: Do not set options like that, instead make a copy?
 
             BeginUow();
         }
@@ -163,11 +168,6 @@ namespace CJ.Domain.Uow
         /// Should be implemented by derived classes to dispose UOW.
         /// </summary>
         protected abstract void DisposeUow();
-
-        protected virtual string ResolveConnectionString()
-        {
-            return ConnectionStringResolver.GetNameOrConnectionString();
-        }
 
         /// <summary>
         /// Called to trigger <see cref="Completed"/> event.

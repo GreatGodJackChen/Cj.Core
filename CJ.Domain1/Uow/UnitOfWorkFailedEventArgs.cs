@@ -2,7 +2,7 @@
 
 namespace CJ.Domain.Uow
 {
-    public class UnitOfWorkFailedEventArgs
+    public class UnitOfWorkFailedEventArgs : EventArgs
     {
         /// <summary>
         /// Exception that caused failure.
