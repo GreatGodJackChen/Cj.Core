@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CJ.Data", "CJ.Data\CJ.Data.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CJ.Core", "CJ.Core\CJ.Core.csproj", "{15E229E9-CACE-4063-9638-370470F8515E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cj.Entities", "Cj.Entities\Cj.Entities.csproj", "{FFDE4F96-B5A1-44E9-94D8-94674B19C2CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CJ.Entities", "Cj.Entities\CJ.Entities.csproj", "{FFDE4F96-B5A1-44E9-94D8-94674B19C2CB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CJ.Domain", "CJ.Domain\CJ.Domain.csproj", "{555225A0-698A-48BE-B086-C8148EBCB5D5}"
 EndProject
