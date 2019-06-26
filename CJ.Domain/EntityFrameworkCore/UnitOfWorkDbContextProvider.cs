@@ -1,4 +1,5 @@
-﻿using CJ.Domain.UowManager;
+﻿using CJ.Domain.Extensions;
+using CJ.Domain.UowManager;
 using Microsoft.EntityFrameworkCore;
 
 namespace CJ.Domain.EntityFrameworkCore

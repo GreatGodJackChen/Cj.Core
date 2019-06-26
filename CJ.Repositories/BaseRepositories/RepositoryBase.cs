@@ -3,15 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace CJ.Domain.Repositories
+namespace CJ.Repositories.BaseRepositories
 {
-    /// <summary>
-    /// 仓储具体实现
-    /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
-    /// <typeparam name="TPrimaryKey"></typeparam>
     public abstract class RepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey> where TEntity : class, IEntity<TPrimaryKey>
     {
         public abstract IQueryable<TEntity> GetAll();
@@ -51,7 +47,7 @@ namespace CJ.Domain.Repositories
             var entity = FirstOrDefault(id);
             if (entity == null)
             {
-                throw new Exception(typeof(TEntity).ToString()+" "+id);
+                throw new Exception(typeof(TEntity).ToString() + " " + id);
             }
 
             return entity;
@@ -130,10 +126,9 @@ namespace CJ.Domain.Repositories
 
         public virtual async Task<TEntity> InsertOrUpdateAsync(TEntity entity)
         {
-            //return entity.IsTransient()
-            //    ? await InsertAsync(entity)
-            //    : await UpdateAsync(entity);
-            return null;
+            return entity.IsTransient()
+                ? await InsertAsync(entity)
+                : await UpdateAsync(entity);
         }
 
         public virtual TPrimaryKey InsertOrUpdateAndGetId(TEntity entity)

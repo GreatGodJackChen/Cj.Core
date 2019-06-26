@@ -4,7 +4,6 @@ using CJ.Core.Infrastructure;
 using CJ.Core.Reflection;
 using CJ.Data.FirstModels;
 using CJ.Domain;
-using CJ.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

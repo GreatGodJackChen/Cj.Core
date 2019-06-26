@@ -3,7 +3,6 @@ using CJ.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using CJ.Domain.Repositories;
 
 namespace CJ.Application.Test
 {

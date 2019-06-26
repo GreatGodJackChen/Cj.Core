@@ -1,5 +1,8 @@
-﻿using CJ.Application.Test;
+﻿using CJ.Application;
+using CJ.Application.Test;
 using CJ.Core.Exception;
+using CJ.Domain;
+using CJ.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,9 +30,12 @@ namespace CJ.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-                services.AddMvc(o => o.Filters.Add<GlobalExceptionFilter>()).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-                services.AddScoped<ITestAppService, TestAppService>();
-                 services.AddTransient(typeof(IFxTest<>),typeof(FxTest<,>));
+            services.AddMvc(o => o.Filters.Add<GlobalExceptionFilter>()).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddScoped<ITestAppService, TestAppService>();
+            services.AddTransient(typeof(IFxTest<>), typeof(FxTest<,>));
+            services.AddUow();
+            services.AddBaseReposity(Configuration);
+            services.AddAppService();
             ////////////////////
             ////注入工作单元
             //services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -47,7 +53,7 @@ namespace CJ.Web
             //foreach (var dbContextType in contextTypes)
             //{
             //    //注入dbcontext
-        
+
             //    var uowconn = Configuration["ConnectionStrings:Default"];
             //    var uowOptions = new DbContextOptionsBuilder<FirstTestDBContext>()
             //        .UseSqlServer(uowconn)

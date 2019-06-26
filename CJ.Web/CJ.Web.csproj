@@ -15,6 +15,7 @@
     <ProjectReference Include="..\CJ.Application\CJ.Application.csproj" />
     <ProjectReference Include="..\CJ.Core\CJ.Core.csproj" />
     <ProjectReference Include="..\CJ.Data\CJ.Data.csproj" />
+    <ProjectReference Include="..\CJ.Repositories\CJ.Repositories.csproj" />
   </ItemGroup>
 
   <ItemGroup>

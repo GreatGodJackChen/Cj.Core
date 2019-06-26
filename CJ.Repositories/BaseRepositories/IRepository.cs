@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CJ.Domain.Repositories
+namespace CJ.Repositories.BaseRepositories
 {
     public interface IRepository
     {

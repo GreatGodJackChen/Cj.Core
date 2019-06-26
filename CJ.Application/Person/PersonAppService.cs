@@ -1,22 +1,26 @@
 ﻿using CJ.Data.FirstModels;
-using CJ.Domain.Repositories;
-using System;
+using CJ.Domain.UowManager;
+using CJ.Repositories.BaseRepositories;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CJ.Application
 {
-    public class PersonAppService:IPersonAppService
+    public class PersonAppService : IPersonAppService
     {
         private readonly IRepository<Person> _repository;
-        public PersonAppService(IRepository<Person> repository)
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
+        public PersonAppService(IRepository<Person> repository, IUnitOfWorkManager unitOfWorkManager)
         {
             _repository = repository;
+            _unitOfWorkManager = unitOfWorkManager;
         }
         public List<Person> GetPersons()
         {
-           var persons=  _repository.GetAllList();
-            return persons;
+            using (var unito = _unitOfWorkManager.Begin())
+            {
+                var persons = _repository.GetAllList();
+                return persons;
+            }
         }
     }
 }

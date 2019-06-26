@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CJ.Domain.UowManager;
+using System;
 using System.Transactions;
 
 namespace CJ.Domain.Uow

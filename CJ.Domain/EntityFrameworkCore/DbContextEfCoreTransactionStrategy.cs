@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Transactions;
 using CJ.Domain.Extensions;
 using CJ.Domain.Uow;
 using CJ.Domain.UowManager;

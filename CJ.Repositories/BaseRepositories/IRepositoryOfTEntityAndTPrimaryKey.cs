@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace CJ.Domain.Repositories
+namespace CJ.Repositories.BaseRepositories
 {
-    //仓储接口定义，主键与实体类型由用户定义
     public interface IRepository<TEntity, TPrimaryKey> : IRepository where TEntity : class, IEntity<TPrimaryKey>
     {
         #region Select/Get/Query

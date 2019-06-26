@@ -4,7 +4,7 @@ using System.Transactions;
 
 namespace CJ.Domain.UowManager
 {
-    public class UnitOfWorkDefaultOptions
+    public class UnitOfWorkDefaultOptions:IUnitOfWorkDefaultOptions
     {
         public TransactionScopeOption Scope { get; set; }
 

@@ -1,20 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Cj.Entities.BaseEntity;
+using CJ.Core.Reflection;
+using CJ.Domain.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CJ.Core.Reflection;
-using Cj.Entities.BaseEntity;
-using CJ.Domain.Uow;
 
-namespace CJ.Domain.Repositories
+namespace CJ.Repositories.BaseRepositories
 {
-    public class EfCoreRepositoryBase<TDbContext, TEntity, TPrimaryKey> :RepositoryBase<TEntity, TPrimaryKey>
-    where TEntity : class, IEntity<TPrimaryKey>
-    where TDbContext : DbContext
+    public class EfCoreRepositoryBase<TDbContext, TEntity, TPrimaryKey> : RepositoryBase<TEntity, TPrimaryKey>
+     where TEntity : class, IEntity<TPrimaryKey>
+     where TDbContext : DbContext
     {
 
         private readonly IDbContextProvider<TDbContext> _dbContextProvider;
@@ -287,17 +288,6 @@ namespace CJ.Domain.Repositories
             {
                 return true;
             }
-
-            if (typeof(TPrimaryKey) == typeof(int))
-            {
-                return Convert.ToInt32(entity.Id) <= 0;
-            }
-
-            if (typeof(TPrimaryKey) == typeof(long))
-            {
-                return Convert.ToInt64(entity.Id) <= 0;
-            }
-
             return false;
         }
     }
