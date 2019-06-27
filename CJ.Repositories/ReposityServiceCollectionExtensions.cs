@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using CJ.Repositories.Interceptor;
 
 namespace CJ.Repositories
 {
@@ -50,6 +51,7 @@ namespace CJ.Repositories
                     var eFprotype = typeof(EfCoreRepositoryBase<,>).MakeGenericType(entity.DeclaringType, entity.EntityType);
                     var protypekey = typeof(IRepository<,>).MakeGenericType(entity.EntityType, primaryKeyType);
                     var eFprotypekey = typeof(EfCoreRepositoryBase<,,>).MakeGenericType(entity.DeclaringType, entity.EntityType, primaryKeyType);
+                    services.AddTransient<UnitOfWorkInterceptor, UnitOfWorkInterceptor>();
                     services.AddTransient(protype, eFprotype);
                     services.AddTransient(protypekey, eFprotypekey);
                 }

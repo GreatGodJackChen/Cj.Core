@@ -28,7 +28,7 @@ namespace CJ.Domain.UowManager
             ConventionalUowSelectors = new List<Func<Type, bool>>
             {
                 //type => typeof(IRepository).IsAssignableFrom(type) ||
-                //        typeof(IApplicationService).IsAssignableFrom(type)
+                       // typeof(IApplicationService).IsAssignableFrom(type)
             };
         }
     }

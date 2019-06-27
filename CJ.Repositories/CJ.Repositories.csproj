@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspectCore.Core" Version="1.2.0" />
+    <PackageReference Include="Castle.DynamicProxy" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CJ.Core\CJ.Core.csproj" />
     <ProjectReference Include="..\CJ.Data\CJ.Data.csproj" />
     <ProjectReference Include="..\CJ.Domain\CJ.Domain.csproj" />

@@ -8,19 +8,14 @@ namespace CJ.Application
     public class PersonAppService : IPersonAppService
     {
         private readonly IRepository<Person> _repository;
-        private readonly IUnitOfWorkManager _unitOfWorkManager;
-        public PersonAppService(IRepository<Person> repository, IUnitOfWorkManager unitOfWorkManager)
+        public PersonAppService(IRepository<Person> repository)
         {
             _repository = repository;
-            _unitOfWorkManager = unitOfWorkManager;
         }
         public List<Person> GetPersons()
         {
-            using (var unito = _unitOfWorkManager.Begin())
-            {
                 var persons = _repository.GetAllList();
                 return persons;
-            }
         }
     }
 }

@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -59,21 +61,21 @@ namespace CJ.Repositories.BaseRepositories
             return Table.AsQueryable();
         }
 
-        //public virtual DbConnection Connection
-        //{
-        //    get
-        //    {
+        public virtual DbConnection Connection
+        {
+            get
+            {
 
-        //        var connection = Context.Database.GetDbConnection();
+                var connection = Context.Database.GetDbConnection();
 
-        //        if (connection.State != ConnectionState.Open)
-        //        {
-        //            connection.Open();
-        //        }
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
 
-        //        return connection;
-        //    }
-        //}
+                return connection;
+            }
+        }
 
         public override IQueryable<TEntity> GetAll()
         {
