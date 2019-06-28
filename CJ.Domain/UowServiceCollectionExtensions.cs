@@ -20,8 +20,6 @@ namespace CJ.Domain
 
             services.AddTransient<ICurrentUnitOfWorkProvider, AsyncLocalCurrentUnitOfWorkProvider>();
 
-            services.AddTransient<IConnectionStringResolver, DefaultConnectionStringResolver>();
-
             services.AddTransient<UnitOfWorkBase, EfCoreUnitOfWork>();
 
             services.AddTransient<IUnitOfWork, EfCoreUnitOfWork>();

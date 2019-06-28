@@ -9,4 +9,10 @@
     <ProjectReference Include="..\CJ.Repositories\CJ.Repositories.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>C:\Users\Administrator\.nuget\packages\autofac\4.9.2\lib\netstandard2.0\Autofac.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

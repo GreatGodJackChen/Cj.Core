@@ -7,7 +7,6 @@
   <ItemGroup>
     <PackageReference Include="AspectCore.Core" Version="1.2.0" />
     <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="1.2.0" />
-    <PackageReference Include="Castle.DynamicProxy" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="AspectCore.Extensions.Autofac">
+      <HintPath>C:\Users\Administrator\.nuget\packages\aspectcore.extensions.autofac\1.2.0\lib\netstandard2.0\AspectCore.Extensions.Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac">
+      <HintPath>C:\Users\Administrator\.nuget\packages\autofac\4.9.2\lib\netstandard2.0\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.EntityFrameworkCore">
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.1.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
     </Reference>

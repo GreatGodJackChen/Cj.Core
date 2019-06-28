@@ -164,9 +164,9 @@ namespace CJ.Domain.Uow
         /// </summary>
         protected abstract void DisposeUow();
 
-        protected virtual string ResolveConnectionString()
+        protected virtual string ResolveConnectionString(Dictionary<string, object> arg)
         {
-            return ConnectionStringResolver.GetNameOrConnectionString();
+            return ConnectionStringResolver.GetNameOrConnectionString(arg);
         }
 
         /// <summary>

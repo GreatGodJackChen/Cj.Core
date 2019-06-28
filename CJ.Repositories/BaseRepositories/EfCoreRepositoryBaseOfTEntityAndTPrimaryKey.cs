@@ -84,7 +84,7 @@ namespace CJ.Repositories.BaseRepositories
 
         public override IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] propertySelectors)
         {
-            var query = GetQueryable();
+            var query = GetQueryable().AsNoTracking();
 
             if (!propertySelectors.Any())
             {
@@ -99,12 +99,12 @@ namespace CJ.Repositories.BaseRepositories
 
         public override async Task<List<TEntity>> GetAllListAsync()
         {
-            return await GetAll().ToListAsync();
+            return await GetAll().AsNoTracking().ToListAsync();
         }
 
         public override async Task<List<TEntity>> GetAllListAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await GetAll().Where(predicate).ToListAsync();
+            return await GetAll().Where(predicate).AsNoTracking().ToListAsync();
         }
 
         public override async Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)

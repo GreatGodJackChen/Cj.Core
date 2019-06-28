@@ -92,8 +92,10 @@ namespace CJ.Domain.Uow
             where TDbContext : DbContext
         {
             var concreteDbContextType = _dbContextTypeMatcher.GetConcreteType(typeof(TDbContext));
-
-            var connectionString = ResolveConnectionString();
+            var connectionStringResolveArgs = new Dictionary<string, object>();
+            connectionStringResolveArgs["DbContextType"] = typeof(TDbContext);
+            connectionStringResolveArgs["DbContextConcreteType"] = concreteDbContextType;
+            var connectionString = ResolveConnectionString(connectionStringResolveArgs);
 
             var dbContextKey = concreteDbContextType.FullName + "#" + connectionString;
             if (name != null)

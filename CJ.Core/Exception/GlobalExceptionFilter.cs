@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System.Data.SqlClient;
+using CJ.Core.Log4net;
 
 namespace CJ.Core.Exception
 {
@@ -15,7 +16,7 @@ namespace CJ.Core.Exception
             else
             {
                 errorMsg = "未知错误,请重试";
-                // MyLogManager.Error(context.Exception.TargetSite.DeclaringType.ToString() + context.Exception.Message, context.Exception, this.GetType());
+                MyLogManager.Error(context.Exception.TargetSite.DeclaringType.ToString() + context.Exception.Message, context.Exception, this.GetType());
             }
             /*
              * 下面是我们自己处理、跳转到指定页面
@@ -33,7 +34,7 @@ namespace CJ.Core.Exception
             //    public object DeveloperMessage { get; set; }
             //} 
 
-            //context.Result = new ApplicationErrorResult(errorMsg);
+            context.Result = new ApplicationErrorResult(errorMsg);
             context.ExceptionHandled = true;
         }
     }

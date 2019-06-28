@@ -10,6 +10,8 @@ using System.Reflection;
 using Autofac.Core;
 using CJ.Data.FirstModels;
 using CJ.Application;
+using CJ.Application.Address;
+using CJ.Repositories.Interceptor;
 
 namespace CJ.Web.Controllers
 {
@@ -17,7 +19,10 @@ namespace CJ.Web.Controllers
     {
         private ITestAppService _testAppService;
         private ITestAutofacAppService _testAutofacAppService;
-        private IPersonAppService _personAppService;
+        private readonly IPersonAppService _personAppService;
+        private readonly IAddressAppService _addressAppService;
+
+        private readonly IServiceProvider _serviceProvider;
         //public HomeController(ITestAppService testAppService, ITestAutofacAppService testAutofacAppService,IPersonAppService personAppService)
         //{
         //    _testAppService = testAppService;
@@ -26,12 +31,16 @@ namespace CJ.Web.Controllers
         //    var ty = typeof(HomeController);
         //    var ty2 = ty.GetTypeInfo().IsAbstract;
         //}
-        public HomeController( IPersonAppService personAppService)
+        public HomeController( IPersonAppService personAppService, IServiceProvider serviceProvider,IAddressAppService addressAppService)
         {
             _personAppService = personAppService;
+            _serviceProvider = serviceProvider;
+            _addressAppService = addressAppService;
         }
         public IActionResult Index()
         {
+            var address = _addressAppService.GetAddresses();
+            //var tt = _serviceProvider.GetService(typeof(UnitOfWorkInterceptor));
             var testPerson = _personAppService.GetPersons();
            //var tAutofac = _testAutofacAppService.TestAutofac();
             return View();

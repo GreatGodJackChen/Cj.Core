@@ -1,7 +1,9 @@
-﻿namespace CJ.Domain.EntityFrameworkCore
+﻿using System.Collections.Generic;
+
+namespace CJ.Domain.EntityFrameworkCore
 {
     public interface IConnectionStringResolver
     {
-        string GetNameOrConnectionString();
+        string GetNameOrConnectionString(Dictionary<string, object> arg);
     }
 }

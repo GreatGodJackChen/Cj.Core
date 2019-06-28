@@ -14,12 +14,14 @@ using System.Text;
 using CJ.Repositories.Interceptor;
 using AspectCore.Extensions.DependencyInjection;
 using AspectCore.Configuration;
+using AspectCore.Extensions.Autofac;
+using Autofac;
 
 namespace CJ.Repositories
 {
     public static  class ReposityServiceCollectionExtensions
     {
-        public static  void AddBaseReposity(this IServiceCollection services, IConfiguration Configuration)
+        public static  void AddBaseReposity(this IServiceCollection services, IConfiguration configuration)
         {
             //找到所有的DBcontext
             var typeFinder = new TypeFinder();
@@ -31,13 +33,6 @@ namespace CJ.Repositories
             }
             foreach (var dbContextType in contextTypes)
             {
-                //注入dbcontext
-
-                var uowconn = Configuration["ConnectionStrings:Default"];
-                var uowOptions = new DbContextOptionsBuilder<FirstTestDBContext>()
-                    .UseSqlServer(uowconn)
-                    .Options;
-                services.AddSingleton(uowOptions).AddTransient(typeof(FirstTestDBContext));
                 //注入每个实体仓库
                 var entities = from property in dbContextType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                                where
@@ -53,13 +48,23 @@ namespace CJ.Repositories
                     var eFprotype = typeof(EfCoreRepositoryBase<,>).MakeGenericType(entity.DeclaringType, entity.EntityType);
                     var protypekey = typeof(IRepository<,>).MakeGenericType(entity.EntityType, primaryKeyType);
                     var eFprotypekey = typeof(EfCoreRepositoryBase<,,>).MakeGenericType(entity.DeclaringType, entity.EntityType, primaryKeyType);
-                    services.AddTransient<UnitOfWorkInterceptor1, UnitOfWorkInterceptor1>();
                     services.AddTransient(protype, eFprotype);
                     services.AddTransient(protypekey, eFprotypekey);
                 }
             }
             services.BuildServiceProvider();
-            //services.BuildDynamicProxyServiceProvider();
+        }
+
+        public static void AddUowInterceptor(this IServiceCollection services, ContainerBuilder containerBuilder)
+        {
+            containerBuilder.RegisterDynamicProxy(config =>
+            {
+                //config.Interceptors.AddTyped<UnitOfWorkInterceptor>(method => method.DeclaringType.Name.EndsWith("Service"));
+                config.Interceptors.AddTyped<UnitOfWorkInterceptor>(
+                    Predicates.ForService("*Repository")); //拦截所有Repository后缀的类或接口
+                config.Interceptors.AddTyped<UnitOfWorkInterceptor>(
+                    Predicates.ForService("*AppService")); //拦截所有Repository后缀的类或接口
+            });
         }
     }
 }

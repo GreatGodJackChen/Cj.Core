@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CJ.Repositories.BaseRepositories
 {
@@ -19,7 +20,7 @@ namespace CJ.Repositories.BaseRepositories
 
         public virtual List<TEntity> GetAllList()
         {
-            return GetAll().ToList();
+            return GetAll().AsNoTracking().ToList();
         }
 
         public virtual Task<List<TEntity>> GetAllListAsync()
@@ -29,7 +30,7 @@ namespace CJ.Repositories.BaseRepositories
 
         public virtual List<TEntity> GetAllList(Expression<Func<TEntity, bool>> predicate)
         {
-            return GetAll().Where(predicate).ToList();
+            return GetAll().AsNoTracking().Where(predicate).ToList();
         }
 
         public virtual Task<List<TEntity>> GetAllListAsync(Expression<Func<TEntity, bool>> predicate)

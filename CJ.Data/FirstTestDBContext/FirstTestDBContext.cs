@@ -1,6 +1,8 @@
 ﻿using System;
+using CJ.Data.Logger;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Logging;
 
 namespace CJ.Data.FirstModels
 {
@@ -16,7 +18,17 @@ namespace CJ.Data.FirstModels
         }
 
         public virtual DbSet<Person> Person { get; set; }
+        //private static readonly LoggerFactory LoggerFactory = new LoggerFactory(new[] { new MyFilteredLoggerProvider((category, level) => category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information) });
 
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseLoggerFactory(GetLoggerFactory.LoggerFactory);
+        //    }
+
+        //    base.OnConfiguring(optionsBuilder);
+        //}
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    if (!optionsBuilder.IsConfigured)
